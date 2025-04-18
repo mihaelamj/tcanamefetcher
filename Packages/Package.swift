@@ -19,9 +19,7 @@ let package = Package(
     targets: {
         let sharedModelsTarget = Target.target(
             name: "SharedModels",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
+            dependencies: []
         )
         
         let homeFeatureTarget = Target.target(
