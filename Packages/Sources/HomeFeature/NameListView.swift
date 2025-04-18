@@ -26,6 +26,7 @@ public struct NameListView: View {
                 }
                 .navigationTitle("Names")
                 .toolbar {
+                    #if os(iOS)
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             viewStore.send(.refreshButtonTapped)
@@ -34,6 +35,16 @@ public struct NameListView: View {
                         }
                         .disabled(viewStore.isLoading)
                     }
+                    #else
+                    ToolbarItem(placement: .automatic) {
+                        Button {
+                            viewStore.send(.refreshButtonTapped)
+                        } label: {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }
+                        .disabled(viewStore.isLoading)
+                    }
+                    #endif
                 }
                 .onAppear {
                     viewStore.send(.onAppear)
@@ -48,7 +59,11 @@ public struct NameListView: View {
                 Text(name.fullName)
             }
         }
+        #if os(iOS)
         .listStyle(.insetGrouped)
+        #else
+        .listStyle(.inset)
+        #endif
         .overlay {
             if names.isEmpty {
                 EmptyListView(message: "No names available")
@@ -60,46 +75,50 @@ public struct NameListView: View {
 // MARK: - Preview
 
 #Preview("With Names") {
-    NameListView(
-        store: Store(initialState: NameListFeature.State(
-            names: [
-                Name(firstName: "John", lastName: "Doe"),
-                Name(firstName: "Jane", lastName: "Smith"),
-                Name(firstName: "Robert", lastName: "Johnson"),
-                Name(firstName: "Emma", lastName: "Williams"),
-                Name(firstName: "Michael", lastName: "Brown")
-            ]
-        )) {
-            NameListFeature()
-        }
-    )
+    { 
+        var state = NameListFeature.State()
+        state.names = [
+            Name(firstName: "John", lastName: "Doe"),
+            Name(firstName: "Jane", lastName: "Smith"),
+            Name(firstName: "Robert", lastName: "Johnson"),
+            Name(firstName: "Emma", lastName: "Williams"),
+            Name(firstName: "Michael", lastName: "Brown")
+        ]
+        return NameListView(
+            store: Store(initialState: state) {
+                NameListFeature()
+            }
+        )
+    }()
 }
 
 #Preview("Loading") {
-    NameListView(
-        store: Store(initialState: NameListFeature.State(
-            isLoading: true
-        )) {
-            NameListFeature()
-        }
-    )
+    {
+        var state = NameListFeature.State()
+        state.isLoading = true
+        return NameListView(
+            store: Store(initialState: state) {
+                NameListFeature()
+            }
+        )
+    }()
 }
 
 #Preview("Error") {
-    NameListView(
-        store: Store(initialState: NameListFeature.State(
-            error: "Failed to load names: Network connection lost"
-        )) {
-            NameListFeature()
-        }
-    )
+    {
+        var state = NameListFeature.State()
+        state.error = "Failed to load names: Network connection lost"
+        return NameListView(
+            store: Store(initialState: state) {
+                NameListFeature()
+            }
+        )
+    }()
 }
 
 #Preview("Empty") {
     NameListView(
-        store: Store(initialState: NameListFeature.State(
-            names: []
-        )) {
+        store: Store(initialState: NameListFeature.State()) {
             NameListFeature()
         }
     )

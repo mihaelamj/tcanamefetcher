@@ -1,6 +1,6 @@
 import Foundation
 
-public class PersistenceManager {
+public final class PersistenceManager: @unchecked Sendable {
     public init() {}
     
     // Add persistence-related methods here as needed

@@ -13,7 +13,6 @@ let package = Package(
         .singleTargetLibrary("AppFeature"),
     ],
     dependencies: [
-        .package(url: "https://github.com/realm/SwiftLint", exact: "0.54.0"),
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.0.0"),
     ],
     targets: {
@@ -57,14 +56,6 @@ let package = Package(
         return targets
     }()
 )
-
-// Inject base plugins into each target
-package.targets = package.targets.map { target in
-    var plugins = target.plugins ?? []
-    plugins.append(.plugin(name: "SwiftLintPlugin", package: "SwiftLint"))
-    target.plugins = plugins
-    return target
-}
 
 extension Product {
     static func singleTargetLibrary(_ name: String) -> Product {

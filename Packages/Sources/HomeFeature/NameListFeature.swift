@@ -4,7 +4,7 @@ import SharedModels
 import DataFeature
 
 @Reducer
-public struct NameListFeature {
+public struct NameListFeature : Sendable{
     @Dependency(\.dataService) var dataService
     
     public init() {}

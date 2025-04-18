@@ -2,7 +2,7 @@ import Foundation
 import SharedModels
 import ComposableArchitecture
 
-public class DataService {
+public final class DataService: @unchecked Sendable {
     private let persistenceManager: PersistenceManager
     
     public init(persistenceManager: PersistenceManager) {
