@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A9B8361E2DB26A99001DD1E9 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = A9B8361D2DB26A99001DD1E9 /* AppFeature */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A9DA8EFB2DB1204500F38382 /* TCATest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCATest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,16 +27,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9B8361E2DB26A99001DD1E9 /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A9B8361C2DB26A99001DD1E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A9DA8EF22DB1204500F38382 = {
 			isa = PBXGroup;
 			children = (
 				A9DA8EFD2DB1204500F38382 /* TCATest */,
+				A9B8361C2DB26A99001DD1E9 /* Frameworks */,
 				A9DA8EFC2DB1204500F38382 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +78,7 @@
 			);
 			name = TCATest;
 			packageProductDependencies = (
+				A9B8361D2DB26A99001DD1E9 /* AppFeature */,
 			);
 			productName = TCATest;
 			productReference = A9DA8EFB2DB1204500F38382 /* TCATest.app */;
@@ -341,6 +355,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A9B8361D2DB26A99001DD1E9 /* AppFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A9DA8EF32DB1204500F38382 /* Project object */;
 }

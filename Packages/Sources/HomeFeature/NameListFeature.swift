@@ -1,13 +1,21 @@
 import Foundation
 import ComposableArchitecture
+import SharedModels
+import DataFeature
 
 @Reducer
-public struct NameListFeature : Sendable{
+public struct NameListFeature {
+    @Dependency(\.dataService) var dataService
+    
+    public init() {}
+    
     @ObservableState
     public struct State: Equatable {
         public var names: [Name] = []
         public var isLoading = false
         public var error: String?
+        
+        public init() {}
     }
     
     public enum Action {
@@ -15,8 +23,6 @@ public struct NameListFeature : Sendable{
         case refreshButtonTapped
         case namesResponse(TaskResult<[Name]>)
     }
-    
-    @Dependency(\.nameClient) var nameClient: NameClient
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -27,7 +33,7 @@ public struct NameListFeature : Sendable{
                 
                 return .run { send in
                     await send(.namesResponse(
-                        TaskResult { try await self.nameClient.fetchNames() }
+                        TaskResult { try await self.dataService.fetchNames() }
                     ))
                 }
                 
@@ -43,4 +49,4 @@ public struct NameListFeature : Sendable{
             }
         }
     }
-}
+} 

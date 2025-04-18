@@ -18,3 +18,11 @@ struct LoadingView: View {
         }
     }
 }
+
+#Preview("Custom Message") {
+    LoadingView(message: "Loading names...")
+}
+
+#Preview("Default") {
+    LoadingView()
+}

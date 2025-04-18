@@ -1,11 +1,16 @@
 import SwiftUI
 import ComposableArchitecture
+import DataFeature
 import SharedModels
 
-struct NameListView: View {
+public struct NameListView: View {
     let store: StoreOf<NameListFeature>
     
-    var body: some View {
+    public init(store: StoreOf<NameListFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
                 ZStack {
@@ -54,9 +59,47 @@ struct NameListView: View {
 
 // MARK: - Preview
 
-#Preview {
+#Preview("With Names") {
     NameListView(
-        store: Store(initialState: NameListFeature.State()) {
+        store: Store(initialState: NameListFeature.State(
+            names: [
+                Name(firstName: "John", lastName: "Doe"),
+                Name(firstName: "Jane", lastName: "Smith"),
+                Name(firstName: "Robert", lastName: "Johnson"),
+                Name(firstName: "Emma", lastName: "Williams"),
+                Name(firstName: "Michael", lastName: "Brown")
+            ]
+        )) {
+            NameListFeature()
+        }
+    )
+}
+
+#Preview("Loading") {
+    NameListView(
+        store: Store(initialState: NameListFeature.State(
+            isLoading: true
+        )) {
+            NameListFeature()
+        }
+    )
+}
+
+#Preview("Error") {
+    NameListView(
+        store: Store(initialState: NameListFeature.State(
+            error: "Failed to load names: Network connection lost"
+        )) {
+            NameListFeature()
+        }
+    )
+}
+
+#Preview("Empty") {
+    NameListView(
+        store: Store(initialState: NameListFeature.State(
+            names: []
+        )) {
             NameListFeature()
         }
     )

@@ -26,3 +26,17 @@ struct ErrorView: View {
         .padding()
     }
 }
+
+#Preview("Network Error") {
+    ErrorView(
+        message: "Failed to load names: Network connection lost",
+        retryAction: {}
+    )
+}
+
+#Preview("Long Error") {
+    ErrorView(
+        message: "Failed to load names: The operation couldn't be completed. Please check your internet connection and try again later.",
+        retryAction: {}
+    )
+}

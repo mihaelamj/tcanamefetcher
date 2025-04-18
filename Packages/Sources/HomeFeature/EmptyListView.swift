@@ -12,3 +12,12 @@ struct EmptyListView: View {
             .foregroundColor(.secondary)
     }
 }
+
+#Preview {
+    EmptyListView(message: "No names available")
+}
+
+// Additional preview showing default message
+#Preview("Default") {
+    EmptyListView()
+}
